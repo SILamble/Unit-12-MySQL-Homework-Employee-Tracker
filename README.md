@@ -10,11 +10,11 @@ Using a MYSQL database containing departments, roles and employee tables that ca
 
 ## MVP
 
-From the CLI the user can view the departments, roles and employees and is able to update employee roles.
+From the CLI the user can view and add departments, roles and employees and is able to update employee roles.
 
 ### Bonus
 
-The user can update the employees manager, view employees by their manager, delete roms and view combined salary per department.
+The user can update the employees manager, view employees by their manager, delete roles and view combined salary per department.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ NPM
 * MYSQL
 
 MYSQL
-* Comma separated value files to see database tables.
+* Comma separated value files to seed database tables.
 
 ## Links
 

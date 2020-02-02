@@ -84,14 +84,14 @@ function editTable(table) {
 };
 
 function amendTable(table) {
-    console.log("This is the table you are going to amend" + table);
     console.log("------------------------------------------------------------------------")
     if (table === "employeesdb.departments") {
         amendDepartments()
     };
     if (table === "employeesdb.roles") {
         amendRoles()
-    } else {
+    } 
+    if (table === "employeesdb.employees"){
         amendEmployees();
     }
 
@@ -114,6 +114,7 @@ function viewOtherTable() {
                 chooseTable();
                 break;
             case "No":
+                console.log("Goodbye")
                 connection.end();
                 break;
             default:
@@ -206,15 +207,22 @@ function addEmployee() {
             name: "empRoleId",
             message: "Enter new employees role ID: "
         },
+        {
+            type: "Number",
+            name: "managerId",
+            message: "Enter new employees managers ID: "
+        },
 
     ]).then(answers => {
         const firstName = answers.empFirstName;
         const lastName = answers.empSecondName;
-        const iD = answers.empRoleId;
+        const roleiD = answers.empRoleId;
+        const manageriD = answers.managerId;
         connection.query("INSERT INTO employeesdb.employees SET ?", {
             first_name: firstName,
             last_name: lastName,
-            role_id: iD
+            role_id: roleiD,
+            manager_id: manageriD
         }, function (err, res) {
             if (err) {
                 throw err
@@ -232,6 +240,7 @@ function amendRoles(){
             name: "roleAmends",
             choices: [
                 "Add role",
+                "Update Role Salary",
                 "Nothing"
             ]
         }
@@ -240,11 +249,51 @@ function amendRoles(){
             case "Add role":
                 addRole();
                 break;
+            case "Update Role Salary":
+                updateRoleSalary();
+                break;
             case "Nothing":
                 viewOtherTable();
                 break;
             default:
         }
+    })
+};
+
+function updateRoleSalary(){
+    connection.query("SELECT * FROM employeesdb.roles", function (err, res) {
+        if (err) {
+            throw new Error(err)
+        }
+        console.table(res)}),
+    inquirer.prompt([
+        {
+            type: "Number",
+            name: "roleId",
+            message: "Enter role ID you want to update: "
+        },
+        {
+            type: "Number",
+            name: "updatedSalary",
+            message: "Enter new salary: "
+        }
+    ]).then(answers => {
+        const roleId = answers.roleId;
+        const updatedSalary = answers.updatedSalary;
+        connection.query(
+            "UPDATE employeesdb.roles SET ? WHERE ?", [
+            {
+                salary: updatedSalary
+            },
+            {
+                role_id: roleId
+            }
+        ], function (err, res) {
+            if (err) {
+                throw err
+            }
+            viewOtherTable();
+        })
     })
 };
 

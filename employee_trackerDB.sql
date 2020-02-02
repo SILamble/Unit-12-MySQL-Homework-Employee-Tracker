@@ -26,6 +26,7 @@ CREATE TABLE employees (
   first_name VARCHAR(100) NULL,
   last_name VARCHAR(100) NULL,
   role_id INT NOT NULL,
+  manager_id INT NOT NULL,
   PRIMARY KEY (employee_id)
 );
 
