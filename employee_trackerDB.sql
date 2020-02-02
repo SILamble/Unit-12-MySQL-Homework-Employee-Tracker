@@ -4,7 +4,7 @@ CREATE database employeesDB;
 USE employeesDB;
 
 CREATE TABLE departments (
-  department_id INT NOT NULL,
+  department_id INT NOT NULL AUTO_INCREMENT,
   department VARCHAR(100) NULL,
   PRIMARY KEY (department_id)
 );
@@ -12,7 +12,7 @@ CREATE TABLE departments (
 SELECT * FROM departments;
 
 CREATE TABLE roles (
-  role_id INT NOT NULL,
+  role_id INT NOT NULL AUTO_INCREMENT,
   role_name VARCHAR(100) NULL,
   salary INT NOT NULL,
   department_id INT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE roles (
 SELECT * FROM roles;
 
 CREATE TABLE employees (
-  employee_id INT NOT NULL,
+  employee_id INT NOT NULL AUTO_INCREMENT,
   first_name VARCHAR(100) NULL,
   last_name VARCHAR(100) NULL,
   role_id INT NOT NULL,
